@@ -1,0 +1,14 @@
+<div>
+    <span>Update Detail</span>
+    <!-- back button -->
+    <button type="button" routerLink="/" class="back btn btn-success">Back</button><br><br>
+    <!-- update form -->
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <label>User Name</label>
+        <input type="text" formControlName="name"><br><br>
+        <label>Email</label>
+        <input type="email" formControlName="email"><br><br><br>
+        <button type="submit" class="update btn btn-success">Update</button>
+    </form>
+</div>
+

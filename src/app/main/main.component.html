@@ -1,0 +1,108 @@
+<!-- <p>User Managment System</p>
+
+<button type="button" routerLink="add" class="btn btn-success">Add</button>
+
+<table>
+    <tr>
+        <th>User Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr *ngFor="let i of users;let no = index">
+        <td><a [routerLink]="['/detail/',i.id]">{{i.name}}</a> </td>
+        <td>{{i.email}}</td>
+        <td>{{i.role}}</td>
+        <td><a class="btn btn-success btn-sm" [routerLink]="['/edit/',i.id]">Edit</a></td>
+        <td><a class="btn btn-danger btn-sm" (click)="removeUser(i, no)">Delete</a></td>
+    </tr>
+</table> -->
+
+<!-- PrimeNG -->
+<p-table #dt [value]="users" [(selection)]="selectedUsers" dataKey="id" styleClass="p-datatable-customers"
+    [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+    [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+    [globalFilterFields]="['name','email','role']">
+    <ng-template pTemplate="caption">
+        <div class="table-header">
+            List of Users
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')"
+                    placeholder="Global Search" />
+            </span>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 3rem"></th>
+            <th pSortableColumn="name">User Name <p-sortIcon field="name"></p-sortIcon>
+            </th>
+            <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon>
+            </th>
+            <th pSortableColumn="role">Role <p-sortIcon field="role"></p-sortIcon>
+            </th>
+            <th pSortableColumn="role">Edit <p-sortIcon field="edit"></p-sortIcon>
+            </th>
+            <th pSortableColumn="role">Delete <p-sortIcon field="delete"></p-sortIcon>
+            </th>
+            <th style="width: 8rem"></th>
+        </tr>
+        <tr>
+            <th>
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th>
+                <input pInputText type="text" (input)="applyFilter($event, 'name', 'startsWith')"
+                    placeholder="Search by Name" class="p-column-filter">
+            </th>
+            <th>
+                <input pInputText type="text" (input)="applyFilter($event, 'email', 'contains')"
+                    placeholder="Search by Email" class="p-column-filter">
+            </th>
+            <th>
+                <p-dropdown [options]="role" (onChange)="dt.filter($event.value, 'role', 'equals')"
+                    styleClass="p-column-filter" placeholder="Select a Role" [showClear]="true">
+                    <ng-template let-option pTemplate="item">
+                        <span
+                            [class]="'customer-badge status-' + option.value">&#123;&#123;option.label&#125;&#125;</span>
+                    </ng-template>
+                </p-dropdown>
+            </th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+        <tr class="p-selectable-row">
+            
+            <td>
+                <p-tableCheckbox [value]="user"></p-tableCheckbox>
+            </td>
+            <td>
+                <span class="p-column-title">User Name</span>
+                {{user.name}}
+            </td>
+            <td>
+                <span class="p-column-title">Email</span>
+                <span class="image-text">{{user.email}}</span>
+            </td>
+            <td>
+                <span class="p-column-title">Role</span>
+                <span [class]="'customer-badge status-' + user.role">{{user.role}}</span>
+            </td>
+            <td style="text-align: center">
+                <a pButton type="button" class="p-button-secondary">Edit</a>
+            </td>
+            <td style="text-align: center">
+                <a pButton type="button" class="p-button-secondary">Delete</a>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="8">No customers found.</td>
+        </tr>
+    </ng-template>
+</p-table>

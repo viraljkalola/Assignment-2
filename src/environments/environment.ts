@@ -2,8 +2,16 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { HttpHeaders } from "@angular/common/http";
+
 export const environment = {
-  production: false
+  production: false,
+
+  //node/express api
+  API_URL : 'https://node-initial-hitesh.herokuapp.com/v1/users',
+
+  //http header
+  HttpHeaders : new HttpHeaders().set('Content-Type', 'application/json')
 };
 
 /*
